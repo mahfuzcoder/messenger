@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Your Nook - Messages</title>
+<!-- Tailwind CSS CDN with forms and container queries plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Plus Jakarta Sans / Inter style -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Custom Tailwind configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            nook: {
+              dark: '#212625',
+              darkHover: '#2a302f',
+              darkActive: '#2d3332',
+              bgMain: '#FBF9F5',
+              bgPanel: '#F6F3EE',
+              bgHighlight: '#EFEAE1',
+              border: '#E8E3DA',
+              borderLight: '#F0ECE4',
+              accent: '#B55B46',
+              accentHover: '#A44E3A',
+              bubbleDark: '#2B3130',
+              textPrimary: '#1E2322',
+              textMuted: '#848785',
+              avatarTeal: '#5D7A68',
+              avatarBlue: '#5C7A8A',
+              avatarRose: '#8C5E6D',
+              avatarOchre: '#B89B6C',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- Typography & Global styles -->
+<style data-purpose="custom-scrollbar">
+    /* Subtle custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D8D2C7;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #C4BDAF;
+    }
+  </style>
+<style data-purpose="media-previews">
+    /* Abstract aesthetic gradient cards for shared media */
+    .media-card-1 {
+      background: linear-gradient(135deg, #CFB18A 0%, #CFB18A 45%, #6C8575 45%, #6C8575 100%);
+    }
+    .media-card-2 {
+      background: linear-gradient(135deg, #CFB18A 0%, #D8C3B0 42%, #5D7A6F 42%, #5D7A6F 58%, #A86553 58%, #A86553 100%);
+    }
+    .media-card-3 {
+      background-color: #4A564F;
+    }
+  </style>
+</head>
+<body class="bg-[#ECE7DF] text-nook-textPrimary font-sans antialiased h-screen w-screen overflow-hidden flex flex-col justify-center items-center p-0 m-0">
+<!-- Application Window Container -->
+<div class="w-full h-full max-w-[1440px] max-h-[900px] flex shadow-2xl overflow-hidden bg-nook-bgMain md:rounded-2xl border border-nook-border" data-purpose="app-shell">
+<!-- BEGIN: LeftmostSlimNavigation -->
+<aside aria-label="Main Navigation" class="w-[72px] bg-nook-dark flex flex-col items-center py-5 justify-between flex-shrink-0 select-none z-20">
+<!-- Top Section: App Logo & Navigation Links -->
+<div class="flex flex-col items-center w-full gap-7">
+<!-- Logo 'n' in rounded squircle -->
+<a aria-label="Your Nook Home" class="w-10 h-10 rounded-xl bg-[#E6A08A] hover:bg-[#DE927B] text-nook-dark flex items-center justify-center font-bold text-xl transition-all shadow-sm" href="#">
+          n
+        </a>
+<!-- Nav Item List -->
+<nav aria-label="Primary Links" class="flex flex-col items-center w-full gap-3">
+<!-- Active Messages Link -->
+<a aria-current="page" class="w-full flex flex-col items-center justify-center py-2 text-white relative group" href="#">
+<span class="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-6 bg-[#E6A08A] rounded-r"></span>
+<div class="p-1 rounded-lg group-hover:text-white transition-colors">
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a.75.75 0 01-.774-.75 4.5 4.5 0 011.082-2.883A7.78 7.78 0 013 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-[10px] font-medium tracking-tight mt-0.5 text-zinc-200">Messages</span>
+</a>
+<!-- People Link -->
+<a class="w-full flex flex-col items-center justify-center py-2 text-zinc-400 hover:text-zinc-200 transition-colors group" href="#">
+<div class="p-1">
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-[10px] font-medium tracking-tight mt-0.5">People</span>
+</a>
+<!-- Saved Link -->
+<a class="w-full flex flex-col items-center justify-center py-2 text-zinc-400 hover:text-zinc-200 transition-colors group" href="#">
+<div class="p-1">
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-[10px] font-medium tracking-tight mt-0.5">Saved</span>
+</a>
+<!-- Archive Link -->
+<a class="w-full flex flex-col items-center justify-center py-2 text-zinc-400 hover:text-zinc-200 transition-colors group" href="#">
+<div class="p-1">
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-[10px] font-medium tracking-tight mt-0.5">Archive</span>
+</a>
+</nav>
+</div>
+<!-- Bottom Actions: Settings & Self Profile Avatar -->
+<div class="flex flex-col items-center gap-4 w-full">
+<!-- Settings Button -->
+<button aria-label="Settings" class="flex flex-col items-center text-zinc-400 hover:text-zinc-200 transition-colors group focus:outline-none">
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-[10px] font-medium tracking-tight mt-1">Settings</span>
+</button>
+<!-- Current User Avatar Profile (AS) -->
+<div class="w-9 h-9 rounded-full bg-[#E5DCD0] text-nook-dark text-xs font-semibold flex items-center justify-center cursor-pointer hover:ring-2 hover:ring-[#E6A08A] transition-all">
+          AS
+        </div>
+</div>
+</aside>
+<!-- END: LeftmostSlimNavigation -->
+<!-- BEGIN: ConversationSidebar -->
+<section aria-label="Conversation List" class="w-80 bg-nook-bgPanel border-r border-nook-border flex flex-col flex-shrink-0">
+<!-- Header: Category Title, Messages Heading, New Chat Button -->
+<div class="p-6 pb-3">
+<div class="flex items-center justify-between">
+<div>
+<span class="text-[10px] font-bold tracking-wider text-nook-accent uppercase block mb-0.5">Your Nook</span>
+<h1 class="text-2xl font-bold text-nook-textPrimary tracking-tight">Messages</h1>
+</div>
+<!-- Plus (+) icon button -->
+<button aria-label="Compose new conversation" class="w-9 h-9 rounded-full bg-nook-bubbleDark hover:bg-black text-white flex items-center justify-center transition-colors shadow-sm focus:outline-none">
+<svg class="w-5 h-5 stroke-2" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+<!-- Search Bar -->
+<div class="mt-4 relative">
+<div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-400">
+<svg class="w-4 h-4 stroke-2" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<input class="w-full bg-[#ECE8E0] hover:bg-[#E8E3DA] focus:bg-white text-xs rounded-xl py-2.5 pl-10 pr-3 text-nook-textPrimary placeholder-zinc-400 border-none focus:ring-1 focus:ring-nook-border transition-all font-medium" placeholder="Search conversations" type="text"/>
+</div>
+<!-- Tabs Filter (All / Unread / Groups) -->
+<div class="flex gap-5 mt-4 text-xs font-semibold text-zinc-500 border-b border-nook-border/70 pb-2">
+<button class="text-nook-textPrimary relative py-1 focus:outline-none">
+            All
+            <!-- Red/Terracotta active bar -->
+<span class="absolute bottom-[-9px] left-0 w-full h-[2px] bg-nook-accent rounded-full"></span>
+</button>
+<button class="hover:text-nook-textPrimary py-1 transition-colors focus:outline-none">Unread</button>
+<button class="hover:text-nook-textPrimary py-1 transition-colors focus:outline-none">Groups</button>
+</div>
+</div>
+<!-- Conversations Scrollable Area -->
+<div class="flex-1 overflow-y-auto px-3 pb-4 space-y-1.5" data-purpose="chat-list">
+<!-- Conversation 1: Maya Chen (Active/Selected) -->
+<article class="p-3 rounded-2xl bg-nook-bgHighlight cursor-pointer transition-all flex items-center gap-3 relative shadow-xs" data-purpose="conversation-item-active">
+<div class="relative flex-shrink-0">
+<div class="w-11 h-11 rounded-full bg-[#A86452] text-white flex items-center justify-center font-semibold text-xs tracking-wide">
+              MC
+            </div>
+<!-- Online status green dot -->
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-nook-bgHighlight rounded-full"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<h2 class="text-sm font-semibold text-nook-textPrimary truncate">Maya Chen</h2>
+<span class="text-[11px] font-medium text-zinc-400 flex-shrink-0">2m</span>
+</div>
+<p class="text-xs text-zinc-500 truncate">The rooftop one is perfect.</p>
+</div>
+<!-- Unread indicator badge -->
+<div class="w-5 h-5 rounded-full bg-nook-accent text-white flex items-center justify-center text-[11px] font-bold flex-shrink-0">
+            2
+          </div>
+</article>
+<!-- Conversation 2: Theo & June -->
+<article class="p-3 rounded-2xl hover:bg-nook-bgHighlight/60 cursor-pointer transition-all flex items-center gap-3 relative" data-purpose="conversation-item">
+<div class="relative flex-shrink-0">
+<div class="w-11 h-11 rounded-full bg-[#5F7866] text-white flex items-center justify-center font-semibold text-xs">
+              T+
+            </div>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-nook-bgPanel rounded-full"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<h2 class="text-sm font-semibold text-nook-textPrimary truncate">Theo &amp; June</h2>
+<span class="text-[11px] font-medium text-zinc-400 flex-shrink-0">18m</span>
+</div>
+<p class="text-xs text-zinc-500 truncate">June: I booked the cabin!</p>
+</div>
+<!-- Unread badge -->
+<div class="w-5 h-5 rounded-full bg-nook-accent text-white flex items-center justify-center text-[11px] font-bold flex-shrink-0">
+            4
+          </div>
+</article>
+<!-- Conversation 3: Noah Williams -->
+<article class="p-3 rounded-2xl hover:bg-nook-bgHighlight/60 cursor-pointer transition-all flex items-center gap-3 relative" data-purpose="conversation-item">
+<div class="relative flex-shrink-0">
+<div class="w-11 h-11 rounded-full bg-[#52778A] text-white flex items-center justify-center font-semibold text-xs">
+              NW
+            </div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<h2 class="text-sm font-semibold text-nook-textPrimary truncate">Noah Williams</h2>
+<span class="text-[11px] font-medium text-zinc-400 flex-shrink-0">1h</span>
+</div>
+<p class="text-xs text-zinc-500 truncate">Shared 3 photos</p>
+</div>
+</article>
+<!-- Conversation 4: Amara Okafor -->
+<article class="p-3 rounded-2xl hover:bg-nook-bgHighlight/60 cursor-pointer transition-all flex items-center gap-3 relative" data-purpose="conversation-item">
+<div class="relative flex-shrink-0">
+<div class="w-11 h-11 rounded-full bg-[#8E6474] text-white flex items-center justify-center font-semibold text-xs">
+              AO
+            </div>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-nook-bgPanel rounded-full"></span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<h2 class="text-sm font-semibold text-nook-textPrimary truncate">Amara Okafor</h2>
+<span class="text-[11px] font-medium text-zinc-400 flex-shrink-0">3h</span>
+</div>
+<p class="text-xs text-zinc-500 truncate">Can I call you after four?</p>
+</div>
+</article>
+<!-- Conversation 5: Studio Folk -->
+<article class="p-3 rounded-2xl hover:bg-nook-bgHighlight/60 cursor-pointer transition-all flex items-center gap-3 relative" data-purpose="conversation-item">
+<div class="relative flex-shrink-0">
+<div class="w-11 h-11 rounded-full bg-[#C1A276] text-white flex items-center justify-center font-semibold text-xs">
+              SF
+            </div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<h2 class="text-sm font-semibold text-nook-textPrimary truncate">Studio Folk</h2>
+<span class="text-[11px] font-medium text-zinc-400 flex-shrink-0">Tue</span>
+</div>
+<p class="text-xs text-zinc-500 truncate">You: I added notes to the deck.</p>
+</div>
+</article>
+<!-- Conversation 6: Elliot Brooks -->
+<article class="p-3 rounded-2xl hover:bg-nook-bgHighlight/60 cursor-pointer transition-all flex items-center gap-3 relative" data-purpose="conversation-item">
+<div class="relative flex-shrink-0">
+<div class="w-11 h-11 rounded-full bg-[#965A65] text-white flex items-center justify-center font-semibold text-xs">
+              EB
+            </div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<h2 class="text-sm font-semibold text-nook-textPrimary truncate">Elliot Brooks</h2>
+<span class="text-[11px] font-medium text-zinc-400 flex-shrink-0">Mon</span>
+</div>
+<p class="text-xs text-zinc-500 truncate">That made my whole day.</p>
+</div>
+</article>
+</div>
+</section>
+<!-- END: ConversationSidebar -->
+<!-- BEGIN: ChatThreadSection -->
+<main aria-label="Current Chat Thread" class="flex-1 flex flex-col bg-nook-bgMain relative overflow-hidden">
+<!-- Top Thread Header Bar -->
+<header class="h-[73px] px-6 border-b border-nook-border/70 flex items-center justify-between bg-nook-bgMain/80 backdrop-blur-sm z-10 flex-shrink-0">
+<!-- Contact Identity in header -->
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="w-10 h-10 rounded-full bg-[#A86452] text-white flex items-center justify-center font-semibold text-xs">
+              MC
+            </div>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-nook-bgMain rounded-full"></span>
+</div>
+<div>
+<h2 class="text-sm font-bold text-nook-textPrimary leading-none">Maya Chen</h2>
+<span class="text-[11px] text-zinc-400 font-medium">Active now</span>
+</div>
+</div>
+<!-- Chat Action Icons: Phone, Video, Info -->
+<div class="flex items-center gap-2 text-zinc-600">
+<button aria-label="Start voice call" class="w-9 h-9 rounded-full border border-nook-border flex items-center justify-center hover:bg-nook-bgPanel transition-colors text-zinc-600">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<button aria-label="Start video call" class="w-9 h-9 rounded-full border border-nook-border flex items-center justify-center hover:bg-nook-bgPanel transition-colors text-zinc-600">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<button aria-label="Conversation info" class="w-9 h-9 rounded-full border border-nook-border flex items-center justify-center hover:bg-nook-bgPanel transition-colors text-zinc-600">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+</header>
+<!-- Scrollable Message Bubbles Area -->
+<div class="flex-1 overflow-y-auto px-10 py-6 space-y-4" data-purpose="chat-messages">
+<!-- Date divider pill -->
+<div class="flex items-center justify-center my-3">
+<div class="h-px bg-nook-border flex-grow max-w-[120px]"></div>
+<span class="text-[11px] font-medium text-zinc-400 px-3 select-none">Today</span>
+<div class="h-px bg-nook-border flex-grow max-w-[120px]"></div>
+</div>
+<!-- Inbound Message 1 -->
+<div class="flex flex-col items-start max-w-[65%]">
+<div class="bg-white rounded-2xl rounded-tl-sm px-4 py-3 shadow-[0_1px_4px_rgba(0,0,0,0.03)] border border-[#ECE7DF]">
+<p class="text-[13px] text-nook-textPrimary font-normal leading-relaxed">Hey! Are we still on for Saturday?</p>
+<div class="text-right mt-1">
+<span class="text-[10px] text-zinc-400">10:24 AM</span>
+</div>
+</div>
+</div>
+<!-- Outbound Message 1 -->
+<div class="flex flex-col items-end w-full">
+<div class="bg-nook-bubbleDark rounded-2xl rounded-tr-sm px-4 py-3 shadow-[0_1px_4px_rgba(0,0,0,0.08)] max-w-[65%] text-white">
+<p class="text-[13px] font-normal leading-relaxed">Absolutely. I found a few places that look lovely.</p>
+<div class="text-right mt-1">
+<span class="text-[10px] text-zinc-400">10:26 AM</span>
+</div>
+</div>
+</div>
+<!-- Inbound Message 2 -->
+<div class="flex flex-col items-start max-w-[65%]">
+<div class="bg-white rounded-2xl rounded-tl-sm px-4 py-3 shadow-[0_1px_4px_rgba(0,0,0,0.03)] border border-[#ECE7DF]">
+<p class="text-[13px] text-nook-textPrimary font-normal leading-relaxed">Send them over — I trust your taste.</p>
+<div class="text-right mt-1">
+<span class="text-[10px] text-zinc-400">10:27 AM</span>
+</div>
+</div>
+</div>
+<!-- Outbound Message 2 -->
+<div class="flex flex-col items-end w-full">
+<div class="bg-nook-bubbleDark rounded-2xl rounded-tr-sm px-4 py-3 shadow-[0_1px_4px_rgba(0,0,0,0.08)] max-w-[65%] text-white">
+<p class="text-[13px] font-normal leading-relaxed">There’s a tiny Italian place, a garden café, and that new rooftop near the gallery.</p>
+<div class="text-right mt-1">
+<span class="text-[10px] text-zinc-400">10:29 AM</span>
+</div>
+</div>
+<!-- Read status indicator -->
+<div class="flex items-center gap-1 mt-1 pr-1">
+<span class="text-[11px] text-zinc-400 font-medium">✓ Read</span>
+</div>
+</div>
+<!-- Inbound Message 3 -->
+<div class="flex flex-col items-start max-w-[65%]">
+<div class="bg-white rounded-2xl rounded-tl-sm px-4 py-2.5 shadow-[0_1px_4px_rgba(0,0,0,0.03)] border border-[#ECE7DF]">
+<p class="text-[13px] text-nook-textPrimary font-normal leading-relaxed">The rooftop one is perfect.</p>
+<div class="text-right mt-0.5">
+<span class="text-[10px] text-zinc-400">10:31 AM</span>
+</div>
+</div>
+</div>
+<!-- Inbound Message 4 -->
+<div class="flex flex-col items-start max-w-[65%]">
+<div class="bg-white rounded-2xl rounded-tl-sm px-4 py-3 shadow-[0_1px_4px_rgba(0,0,0,0.03)] border border-[#ECE7DF]">
+<p class="text-[13px] text-nook-textPrimary font-normal leading-relaxed">Golden hour, good food, and finally a proper catch-up?</p>
+<div class="text-right mt-1">
+<span class="text-[10px] text-zinc-400">10:31 AM</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Message Composer Container at Bottom -->
+<footer class="p-6 pt-2 bg-transparent flex flex-col items-center">
+<!-- Input pill shape -->
+<div class="w-full bg-[#EFECE6] border border-[#E2DDD4] rounded-2xl p-2 px-3 flex items-center gap-2 shadow-xs focus-within:ring-1 focus-within:ring-zinc-400 focus-within:bg-white transition-all">
+<!-- Attachment button -->
+<button aria-label="Attach file" class="w-8 h-8 rounded-full flex items-center justify-center text-zinc-500 hover:text-zinc-800 transition-colors focus:outline-none">
+<svg class="w-5 h-5 stroke-[1.7] rotate-45" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.373L8.553 18.32a1.5 1.5 0 01-2.121-2.121l9.646-9.646" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<!-- Input Field -->
+<input class="flex-1 bg-transparent border-none text-[13px] placeholder-zinc-500 text-nook-textPrimary focus:ring-0 focus:outline-none py-1.5 px-2" placeholder="Message Maya..." type="text"/>
+<!-- Emoji button -->
+<button aria-label="Insert emoji" class="w-8 h-8 rounded-full flex items-center justify-center text-zinc-500 hover:text-zinc-800 transition-colors focus:outline-none">
+<svg class="w-5 h-5 stroke-[1.7]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm5.25 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<!-- Voice / Microphone button -->
+<button aria-label="Record voice note" class="w-8 h-8 rounded-full flex items-center justify-center text-zinc-500 hover:text-zinc-800 transition-colors focus:outline-none">
+<svg class="w-5 h-5 stroke-[1.7]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<!-- Send Paper Airplane button -->
+<button aria-label="Send message" class="w-8 h-8 rounded-xl bg-zinc-300 hover:bg-nook-accent text-zinc-600 hover:text-white flex items-center justify-center transition-all focus:outline-none">
+<svg class="w-4 h-4 stroke-[2] -rotate-45 translate-x-0.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+<span class="text-[10px] text-zinc-400 mt-2 font-medium">Press Enter to send</span>
+</footer>
+</main>
+<!-- END: ChatThreadSection -->
+<!-- BEGIN: DetailsSidebar -->
+<aside aria-label="Conversation Details" class="w-[300px] bg-nook-bgPanel border-l border-nook-border flex flex-col flex-shrink-0 relative select-none">
+<!-- Details Header -->
+<div class="h-[73px] px-6 flex items-center justify-between border-b border-nook-border/70 flex-shrink-0">
+<h2 class="text-sm font-bold text-nook-textPrimary">Details</h2>
+<!-- Close icon button -->
+<button aria-label="Close details panel" class="w-7 h-7 rounded-full bg-nook-bgMain hover:bg-white text-zinc-500 hover:text-zinc-800 flex items-center justify-center transition-colors focus:outline-none">
+<svg class="w-3.5 h-3.5 stroke-2" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+<!-- Scrollable details content -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6">
+<!-- User Large Avatar & Identity -->
+<div class="flex flex-col items-center text-center">
+<div class="relative mb-3">
+<div class="w-20 h-20 rounded-full bg-[#A86452] text-white flex items-center justify-center font-bold text-xl shadow-xs">
+              MC
+            </div>
+<!-- Online Indicator Dot -->
+<span class="absolute bottom-1 right-1 w-3.5 h-3.5 bg-emerald-500 border-2 border-nook-bgPanel rounded-full"></span>
+</div>
+<h3 class="text-base font-bold text-nook-textPrimary leading-snug">Maya Chen</h3>
+<p class="text-xs text-zinc-400 font-medium">Product designer</p>
+<!-- Quick Action Buttons: Mute, Search, More -->
+<div class="flex items-center justify-center gap-3 mt-4">
+<!-- Mute -->
+<button class="flex flex-col items-center gap-1 group focus:outline-none">
+<div class="w-10 h-10 rounded-xl bg-white group-hover:bg-[#EFEAE1] border border-nook-border/80 flex items-center justify-center text-zinc-600 transition-colors shadow-2xs">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.757 3.63 8.25 4.51 8.25H9z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-[10px] font-medium text-zinc-500">Mute</span>
+</button>
+<!-- Search -->
+<button class="flex flex-col items-center gap-1 group focus:outline-none">
+<div class="w-10 h-10 rounded-xl bg-white group-hover:bg-[#EFEAE1] border border-nook-border/80 flex items-center justify-center text-zinc-600 transition-colors shadow-2xs">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-[10px] font-medium text-zinc-500">Search</span>
+</button>
+<!-- More -->
+<button class="flex flex-col items-center gap-1 group focus:outline-none">
+<div class="w-10 h-10 rounded-xl bg-white group-hover:bg-[#EFEAE1] border border-nook-border/80 flex items-center justify-center text-zinc-600 transition-colors shadow-2xs">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-[10px] font-medium text-zinc-500">More</span>
+</button>
+</div>
+</div>
+<!-- Details Menu Links (Media & files, Starred messages) -->
+<div class="space-y-1 pt-2">
+<!-- Media & files -->
+<button class="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-nook-bgHighlight transition-colors group text-left focus:outline-none">
+<div class="flex items-center gap-2.5 text-zinc-700">
+<svg class="w-4 h-4 stroke-[1.8] text-zinc-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-xs font-semibold text-nook-textPrimary">Media &amp; files</span>
+</div>
+<div class="flex items-center gap-1.5 text-zinc-400">
+<span class="text-xs font-medium">12</span>
+<svg class="w-3.5 h-3.5 stroke-2" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M8.25 4.5l7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+</button>
+<!-- Starred messages -->
+<button class="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-nook-bgHighlight transition-colors group text-left focus:outline-none">
+<div class="flex items-center gap-2.5 text-zinc-700">
+<svg class="w-4 h-4 stroke-[1.8] text-zinc-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-xs font-semibold text-nook-textPrimary">Starred messages</span>
+</div>
+<div class="flex items-center text-zinc-400">
+<svg class="w-3.5 h-3.5 stroke-2" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M8.25 4.5l7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+</button>
+</div>
+<!-- Recently Shared Gallery Section -->
+<div class="pt-1">
+<div class="flex items-center justify-between mb-3">
+<h4 class="text-xs font-bold text-nook-textPrimary">Recently shared</h4>
+<a class="text-[11px] font-semibold text-nook-accent hover:underline" href="#">View all</a>
+</div>
+<!-- 3 Grid Image/Color cards -->
+<div class="grid grid-cols-3 gap-2">
+<!-- Media 1 -->
+<div class="aspect-square rounded-xl media-card-1 shadow-2xs hover:opacity-90 cursor-pointer transition-opacity" title="Shared photo 1"></div>
+<!-- Media 2 -->
+<div class="aspect-square rounded-xl media-card-2 shadow-2xs hover:opacity-90 cursor-pointer transition-opacity" title="Shared photo 2"></div>
+<!-- Media 3 (with +9 overlay) -->
+<div class="aspect-square rounded-xl media-card-3 shadow-2xs flex items-center justify-center cursor-pointer hover:opacity-95 transition-opacity" title="More media">
+<span class="text-xs font-bold text-white tracking-wide">+9</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Floating Badge (Figma Make bar reproduction from screenshot) -->
+<div class="absolute bottom-3 right-3 left-3 flex justify-end pointer-events-none">
+<div class="pointer-events-auto bg-white/95 backdrop-blur-md border border-[#E0DCD3] rounded-xl shadow-lg px-2.5 py-1.5 flex items-center gap-2 text-xs">
+<svg class="w-3.5 h-3.5 text-zinc-800" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14.5h-2v-2h2v2zm0-4h-2V7h2v5.5z"></path>
+</svg>
+<span class="text-[11px] font-medium text-zinc-700 whitespace-nowrap">Created with Figma Make</span>
+<button class="bg-[#3B57F5] hover:bg-[#2B46E5] text-white text-[11px] font-semibold px-2.5 py-0.5 rounded-md transition-colors">
+            Remix
+          </button>
+<button class="text-zinc-400 hover:text-zinc-600 px-0.5">
+<svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 24 24"><circle cx="5" cy="12" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle></svg>
+</button>
+<button class="text-zinc-400 hover:text-zinc-600">
+<svg class="w-3 h-3 stroke-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</button>
+</div>
+</div>
+</aside>
+<!-- END: DetailsSidebar -->
+</div>
+</body></html>

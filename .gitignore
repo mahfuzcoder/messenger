@@ -1,0 +1,22 @@
+# Secrets — never commit
+.env
+
+# Dependencies & build
+node_modules/
+frontend/dist/
+
+# Local data / uploads
+data/
+uploads/
+*.log
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+requirement.md
+guide.md
+airule.md
+
+design\

@@ -1,0 +1,45 @@
+{
+  "name": "messenger",
+  "version": "1.0.0",
+  "description": "Real-time messaging website — Node.js, Express, Socket.IO, MongoDB, Cloudinary",
+  "type": "module",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "npm run build && node backend/server.js",
+    "dev": "vite frontend --config frontend/vite.config.js",
+    "dev:server": "node --watch backend/server.js",
+    "build": "vite build frontend --config frontend/vite.config.js"
+  },
+  "keywords": [
+    "chat",
+    "messaging",
+    "socket.io",
+    "mongodb"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.5.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5",
+    "multer": "^2.4.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "socket.io": "^4.8.1"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.7",
+    "socket.io-client": "^4.8.4"
+  }
+}
