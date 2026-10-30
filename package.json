@@ -5,7 +5,7 @@
   "type": "module",
   "main": "backend/server.js",
   "scripts": {
-    "start": "npm run build && node backend/server.js",
+    "start": "node backend/server.js",
     "dev": "vite frontend --config frontend/vite.config.js",
     "dev:server": "node --watch backend/server.js",
     "build": "vite build frontend --config frontend/vite.config.js"
@@ -32,14 +32,14 @@
     "multer": "^2.4.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "socket.io": "^4.8.1"
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.4"
   },
   "engines": {
     "node": ">=18"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
-    "vite": "^6.0.7",
-    "socket.io-client": "^4.8.4"
+    "vite": "^6.0.7"
   }
 }

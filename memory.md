@@ -16,8 +16,8 @@
 | Database | MongoDB (Mongoose ODM) |
 | Hosting target | Render (backend) + MongoDB Atlas (DB) |
 | Folder structure | `backend/` (API + Socket.IO) আর `frontend/` (HTML/CSS/JS) — আলাদা আলাদা ফোল্ডার |
-| Current version | v1.5.0 |
-| Last updated | 2026-10-29 |
+| Current version | v1.6.0 |
+| Last updated | 2026-10-30 |
 
 ---
 
@@ -25,6 +25,7 @@
 
 | Date | Version | Change | Files | Status |
 |------|---------|--------|-------|--------|
+| 2026-10-30 | v1.6.0 | **Render + MongoDB Atlas production hardening** — (1) `server.js`: custom Helmet CSP (allows `blob:` previews, CDN media, `ws:/wss:` + allowed origins in connect-src; `upgrade-insecure-requests` only in production), per-request CORS wrapper, CSRF origin gate (foreign Origin → 403), global `/api` limiter (600/15min), `GET /health` endpoint, `mongoose.connect` fails fast (10s timeout + readable error + `exit(1)`), production Cloudinary-missing warning, SIGTERM/SIGINT graceful shutdown, Socket.IO `allowRequest` origin enforcement. (2) `middleware/auth.js`: own-origin (host + `x-forwarded-proto`) always allowed → single Render instance serves UI + API. (3) `routes/conversations.js`: factory `conversationRoutes(io, upload)` + group-photo endpoint `POST /api/conversations/:id/avatar` (member-only, image-only, temp file unlinked on every rejection path). (4) `utils/upload.js`: `configureCloudinary`/`removeStoredFile`/`cloudinaryFile` helpers; `routes/users.js` deletes old avatar on replace. (5) `middleware/error.js`: `CastError`→400, bad JSON→400, oversized body→413 (no more 500s). (6) `routes/auth.js`: auth limiter 10→30/15min (shared-NAT lockout fix, brute-force still verified 35→429). (7) `render.yaml` (`npm install && npm run build`, `/health`, env docs), `.env.example`, guide.md A3/A5, `App.jsx` avatar live-patch. **Test results:** 56 REST + 14 Socket.IO + 12 production-mode checks — all passing (mongodb-memory-server) | `backend/server.js`, `backend/middleware/auth.js`, `backend/middleware/error.js`, `backend/routes/auth.js`, `backend/routes/users.js`, `backend/routes/conversations.js`, `backend/utils/upload.js`, `frontend/src/App.jsx`, `render.yaml`, `.env.example`, `guide.md` | ✅ Done |
 | 2026-10-29 | v1.5.0 | Migrated the messenger interface to React components and Vite; Node/Express now serves the production build, with separate React development and Node server commands | `frontend/src/*`, `frontend/vite.config.js`, `backend/server.js`, `package.json` | ✅ Implementation in place; dependency install/build verification pending |
 | 2026-10-29 | v1.4.0 | Rebuilt missing frontend as responsive Nook Messenger prototype based on saved Stitch design; added interactive inbox/search/filter/new-chat/message composer and Express static server entry point | `frontend/index.html`, `frontend/css/style.css`, `frontend/js/app.js`, `backend/server.js` | ✅ UI prototype complete; backend accounts, persistence and real-time messaging not connected |
 | 2026-10-18 | v1.0 | Project initialization — documentation created (requirement, airule, guide, memory) | `requirement.md`, `airule.md`, `guide.md`, `memory.md` | ✅ Done |
@@ -93,6 +94,7 @@
 | v1.0 | Core chat: auth, private/group, real-time, media, voice, presence, seen, delete, search, responsive | ✅ Complete |
 | v1.2.0 | Profile photo crop dialog (Cropper.js) + CSP `blob:` fix | ✅ Complete |
 | v1.3.0 | Group photo (crop dialog, live update) + `notifyMembers` room bug fix | ✅ Complete |
+| v1.6.0 | Render + MongoDB Atlas production hardening (CSP/CORS/CSRF/rate limit/fail-fast DB/graceful shutdown) + group-photo API | ✅ Complete |
 | Next | Emoji picker, message reply, typing indicator | ⬜ Planned |
 | Later | Message edit, forward, unread badge per conversation | ⬜ Planned |
 | v2.0 | Voice/video call (WebRTC), push notification, multi-instance (Redis) | ⬜ Ideas |
