@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: nook-messenger-api
+    runtime: node
+    # Builds the React production bundle too, so this single service serves UI + API + sockets
+    buildCommand: npm install && npm run build
+    startCommand: node backend/server.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # MongoDB Atlas connection string (mongodb+srv://…) — set after creating the service
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      # Extra origins as a comma-separated list, e.g. https://your-app.onrender.com,https://your-frontend.vercel.app
+      # Requests from this service's own origin are always allowed.
+      - key: CLIENT_ORIGIN
+        sync: false
+      # Required in production — Render's disk is temporary, so files must live on the CDN
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
